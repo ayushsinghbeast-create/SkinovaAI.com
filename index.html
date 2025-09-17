@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkinovaAI Beta Signup</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5faff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1e88e5;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    button {
+      background: #1e88e5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #1565c0;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 14px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Join SkinovaAI Beta</h2>
+    <form id="signupForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("signupForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      message.innerText = "Submitting...";
+
+      const formData = new FormData(form);
+      const data = new URLSearchParams(formData);
+
+      // Aapka Apps Script ka URL yahan daalein
+      const scriptURL = "https://script.google.com/macros/s/AKfycbx-VnDvXaazzLBYAv4E2rJViGIOqZ9kMSjcP-Lvjv0TgOWg_knctVmhOx0tw-iqooTuNA/exec";
+
+      try {
+        const response = await fetch(scriptURL, { method: "POST", body: data });
+        if (response.ok) {
+          message.innerText = "Thank you for signing up!";
+          form.reset();
+        } else {
+          message.innerText = "Something went wrong. Please try again.";
+        }
+      } catch (error) {
+        message.innerText = "Network error. Try again later.";
+      }
+    });
+  </script>
+</body>
+</html>
